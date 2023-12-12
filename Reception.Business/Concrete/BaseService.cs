@@ -6,7 +6,7 @@ namespace Reception.Business.Concrete;
 
 public class BaseService<TEntity, TRepository> : IBaseService<TEntity>
     where TEntity : class, IEntity, new()
-    where TRepository : class, IEntityRepository<TEntity>, new()
+    where TRepository : class, IEntityRepository<TEntity>
 {
     private readonly TRepository _repository;
 
@@ -17,26 +17,31 @@ public class BaseService<TEntity, TRepository> : IBaseService<TEntity>
 
     public TEntity Add(TEntity entity)
     {
+        var result = _repository.Add(entity);
 
+        return result;
     }
 
-    public TEntity Delete(TEntity entity)
+    public void Delete(TEntity entity)
     {
-        throw new NotImplementedException();
+        _repository.Delete(entity);
     }
 
     public TEntity Get(int id)
     {
-        throw new NotImplementedException();
+        var result = _repository.Get(e => e.Id == id);
+        return result;
     }
 
     public List<TEntity> GetAll()
     {
-        throw new NotImplementedException();
+        var list = _repository.GetAll();
+        return list;
     }
 
     public TEntity Update(TEntity entity)
     {
-        throw new NotImplementedException();
+        var result= _repository.Update(entity);
+        return result;
     }
 }
